@@ -1,5 +1,3 @@
-
-import pandas as pd
 import numpy as np
 
 def generate_supply_chain_data(num_suppliers, num_customers, seed=42):

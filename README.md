@@ -1,298 +1,171 @@
-# 🤖 Supply Chain Optimization
+# Supply Chain Optimization
 
-> Repositório para otimização da cadeia de suprimentos.
-
-[![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg)](https://img.shields.io/badge/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://img.shields.io/badge/)
-[![NumPy](https://img.shields.io/badge/NumPy-1.26-013243.svg)](https://img.shields.io/badge/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2-150458.svg)](https://img.shields.io/badge/)
-[![scikit--learn](https://img.shields.io/badge/scikit--learn-1.4-F7931E.svg)](https://img.shields.io/badge/)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg)](https://www.python.org/)
+[![PuLP](https://img.shields.io/badge/PuLP-2.7-blue.svg)](https://coin-or.github.io/pulp/)
+[![NumPy](https://img.shields.io/badge/NumPy-1.26-013243.svg)](https://numpy.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.8-11557C.svg)](https://matplotlib.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[English](#english) | [Português](#português)
+[Portugues](#portugues) | [English](#english)
+
+---
+
+## Portugues
+
+### Visao Geral
+
+Ferramenta de otimizacao de cadeia de suprimentos que resolve o problema de transporte usando programacao linear. Dado um conjunto de fornecedores (com capacidades), clientes (com demandas) e custos de transporte, encontra a alocacao de menor custo total.
+
+### Arquitetura
+
+```mermaid
+graph LR
+    A[Gerador de Dados<br>custos, oferta e demanda aleatorios] --> B[Solver PuLP<br>problema de transporte LP]
+    B --> C[Matriz de Alocacao Otima]
+    C --> D[Heatmap Matplotlib]
+```
+
+### Como Funciona
+
+1. **Geracao de dados** (`src/data_generator.py`): Gera custos de transporte, capacidades de fornecimento e demandas aleatorias usando NumPy
+2. **Otimizacao** (`src/supply_chain_optimizer.py`): Formula e resolve o problema de transporte como programacao linear usando PuLP (minimiza custo total respeitando restricoes de oferta e demanda)
+3. **Visualizacao** (`main.py`): Executa cenarios e gera heatmaps das alocacoes otimas com Matplotlib
+
+### Como Usar
+
+```bash
+# Clonar o repositorio
+git clone https://github.com/galafis/Supply-Chain-Optimization.git
+cd Supply-Chain-Optimization
+
+# Criar ambiente virtual e instalar dependencias
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+# Executar
+python main.py
+```
+
+### Testes
+
+```bash
+pytest tests/test_optimizer.py -v
+```
+
+### Estrutura do Projeto
+
+```
+Supply-Chain-Optimization/
+├── src/
+│   ├── __init__.py
+│   ├── data_generator.py        # Geracao de dados sinteticos
+│   └── supply_chain_optimizer.py # Solver LP + visualizacao
+├── tests/
+│   ├── __init__.py
+│   └── test_optimizer.py        # Testes unitarios
+├── main.py                      # Ponto de entrada
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+### Stack Tecnologica
+
+| Tecnologia | Uso |
+|------------|-----|
+| **Python** | Linguagem principal |
+| **PuLP** | Solver de programacao linear |
+| **NumPy** | Geracao de dados numericos |
+| **Matplotlib** | Visualizacao (heatmap) |
+
+### Autor
+
+**Gabriel Demetrios Lafis**
+- GitHub: [@galafis](https://github.com/galafis)
+- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+
+### Licenca
+
+Licenciado sob a Licenca MIT - veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
 ## English
 
-### 🎯 Overview
+### Overview
 
-**Supply Chain Optimization** is a production-grade Python application that showcases modern software engineering practices including clean architecture, comprehensive testing, containerized deployment, and CI/CD readiness.
+Supply chain optimization tool that solves the transportation problem using linear programming. Given a set of suppliers (with capacities), customers (with demands), and transportation costs, it finds the minimum total cost allocation.
 
-The codebase comprises **358 lines** of source code organized across **5 modules**, following industry best practices for maintainability, scalability, and code quality.
-
-### ✨ Key Features
-
-- **🤖 ML Pipeline**: End-to-end machine learning workflow from data to deployment
-- **🔬 Feature Engineering**: Automated feature extraction and transformation
-- **📊 Model Evaluation**: Comprehensive metrics and cross-validation
-- **🚀 Model Serving**: Production-ready prediction API
-- **🐳 Containerized**: Docker support for consistent deployment
-- **🏗️ Object-Oriented**: 1 core classes with clean architecture
-
-### 🏗️ Architecture
+### Architecture
 
 ```mermaid
 graph LR
-    subgraph Input["📥 Input"]
-        A[Raw Data]
-        B[Feature Config]
-    end
-    
-    subgraph Pipeline["🔬 ML Pipeline"]
-        C[Preprocessing]
-        D[Feature Engineering]
-        E[Model Training]
-        F[Evaluation]
-    end
-    
-    subgraph Output["📤 Output"]
-        G[Trained Models]
-        H[Metrics & Reports]
-        I[Predictions]
-    end
-    
-    A --> C --> D --> E --> F
-    B --> D
-    F --> G
-    F --> H
-    G --> I
-    
-    style Input fill:#e1f5fe
-    style Pipeline fill:#f3e5f5
-    style Output fill:#e8f5e9
+    A[Data Generator<br>random costs, supply & demand] --> B[PuLP Solver<br>transportation LP problem]
+    B --> C[Optimal Allocation Matrix]
+    C --> D[Matplotlib Heatmap]
 ```
 
-### 🚀 Quick Start
+### How It Works
 
-#### Prerequisites
+1. **Data generation** (`src/data_generator.py`): Generates random transportation costs, supply capacities, and demands using NumPy
+2. **Optimization** (`src/supply_chain_optimizer.py`): Formulates and solves the transportation problem as linear programming using PuLP (minimizes total cost subject to supply and demand constraints)
+3. **Visualization** (`main.py`): Runs scenarios and generates heatmaps of optimal allocations with Matplotlib
 
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
+### Usage
 
 ```bash
 # Clone the repository
 git clone https://github.com/galafis/Supply-Chain-Optimization.git
 cd Supply-Chain-Optimization
 
-# Create and activate virtual environment
+# Create virtual environment and install dependencies
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-```
 
-#### Running
-
-```bash
-# Run the application
+# Run
 python main.py
 ```
 
-### 🧪 Testing
+### Tests
 
 ```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov --cov-report=html
-
-# Run specific test module
-pytest tests/test_main.py -v
-
-# Run with detailed output
-pytest -v --tb=short
+pytest tests/test_optimizer.py -v
 ```
 
-### 📁 Project Structure
+### Project Structure
 
 ```
 Supply-Chain-Optimization/
-├── docs/          # Documentation
-│   └── images/
-├── src/          # Source code
+├── src/
 │   ├── __init__.py
-│   ├── data_generator.py
-│   └── supply_chain_optimizer.py
-├── tests/         # Test suite
-│   └── test_optimizer.py
-├── Dockerfile
+│   ├── data_generator.py        # Synthetic data generation
+│   └── supply_chain_optimizer.py # LP solver + visualization
+├── tests/
+│   ├── __init__.py
+│   └── test_optimizer.py        # Unit tests
+├── main.py                      # Entry point
+├── requirements.txt
 ├── LICENSE
-├── README.md
-├── main.py
-└── requirements.txt
+└── README.md
 ```
 
-### 🛠️ Tech Stack
+### Tech Stack
 
-| Technology | Description | Role |
-|------------|-------------|------|
-| **Python** | Core Language | Primary |
-| **Docker** | Containerization platform | Framework |
-| **NumPy** | Numerical computing | Framework |
-| **Pandas** | Data manipulation library | Framework |
-| **scikit-learn** | Machine learning library | Framework |
+| Technology | Usage |
+|------------|-------|
+| **Python** | Core language |
+| **PuLP** | Linear programming solver |
+| **NumPy** | Numerical data generation |
+| **Matplotlib** | Visualization (heatmap) |
 
-### 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### 👤 Author
+### Author
 
 **Gabriel Demetrios Lafis**
 - GitHub: [@galafis](https://github.com/galafis)
 - LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
 
----
+### License
 
-## Português
-
-### 🎯 Visão Geral
-
-**Supply Chain Optimization** é uma aplicação Python de nível profissional que demonstra práticas modernas de engenharia de software, incluindo arquitetura limpa, testes abrangentes, implantação containerizada e prontidão para CI/CD.
-
-A base de código compreende **358 linhas** de código-fonte organizadas em **5 módulos**, seguindo as melhores práticas do setor para manutenibilidade, escalabilidade e qualidade de código.
-
-### ✨ Funcionalidades Principais
-
-- **🤖 ML Pipeline**: End-to-end machine learning workflow from data to deployment
-- **🔬 Feature Engineering**: Automated feature extraction and transformation
-- **📊 Model Evaluation**: Comprehensive metrics and cross-validation
-- **🚀 Model Serving**: Production-ready prediction API
-- **🐳 Containerized**: Docker support for consistent deployment
-- **🏗️ Object-Oriented**: 1 core classes with clean architecture
-
-### 🏗️ Arquitetura
-
-```mermaid
-graph LR
-    subgraph Input["📥 Input"]
-        A[Raw Data]
-        B[Feature Config]
-    end
-    
-    subgraph Pipeline["🔬 ML Pipeline"]
-        C[Preprocessing]
-        D[Feature Engineering]
-        E[Model Training]
-        F[Evaluation]
-    end
-    
-    subgraph Output["📤 Output"]
-        G[Trained Models]
-        H[Metrics & Reports]
-        I[Predictions]
-    end
-    
-    A --> C --> D --> E --> F
-    B --> D
-    F --> G
-    F --> H
-    G --> I
-    
-    style Input fill:#e1f5fe
-    style Pipeline fill:#f3e5f5
-    style Output fill:#e8f5e9
-```
-
-### 🚀 Início Rápido
-
-#### Prerequisites
-
-- Python 3.12+
-- pip (Python package manager)
-
-#### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/galafis/Supply-Chain-Optimization.git
-cd Supply-Chain-Optimization
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-#### Running
-
-```bash
-# Run the application
-python main.py
-```
-
-### 🧪 Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov --cov-report=html
-
-# Run specific test module
-pytest tests/test_main.py -v
-
-# Run with detailed output
-pytest -v --tb=short
-```
-
-### 📁 Estrutura do Projeto
-
-```
-Supply-Chain-Optimization/
-├── docs/          # Documentation
-│   └── images/
-├── src/          # Source code
-│   ├── __init__.py
-│   ├── data_generator.py
-│   └── supply_chain_optimizer.py
-├── tests/         # Test suite
-│   └── test_optimizer.py
-├── Dockerfile
-├── LICENSE
-├── README.md
-├── main.py
-└── requirements.txt
-```
-
-### 🛠️ Stack Tecnológica
-
-| Tecnologia | Descrição | Papel |
-|------------|-----------|-------|
-| **Python** | Core Language | Primary |
-| **Docker** | Containerization platform | Framework |
-| **NumPy** | Numerical computing | Framework |
-| **Pandas** | Data manipulation library | Framework |
-| **scikit-learn** | Machine learning library | Framework |
-
-### 🤝 Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para enviar um Pull Request.
-
-### 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-### 👤 Autor
-
-**Gabriel Demetrios Lafis**
-- GitHub: [@galafis](https://github.com/galafis)
-- LinkedIn: [Gabriel Demetrios Lafis](https://linkedin.com/in/gabriel-demetrios-lafis)
+Licensed under the MIT License - see [LICENSE](LICENSE) for details.
