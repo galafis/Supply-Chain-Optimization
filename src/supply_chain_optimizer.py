@@ -48,7 +48,7 @@ def solve_transportation_problem(costs, supplies, demands, supplier_names=None, 
         prob += pulp.lpSum(x[(i, j)] for i in range(num_suppliers)) >= demands[j], f"Demand_Constraint_{customer_names[j]}"
 
     # Resolver o problema
-    prob.solve()
+    prob.solve(pulp.PULP_CBC_CMD(msg=0))
 
     # Obter resultados
     status = pulp.LpStatus[prob.status]
